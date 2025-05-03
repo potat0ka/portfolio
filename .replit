@@ -9,10 +9,19 @@ channel = "stable-24_05"
 run = ["sh", "-c", "python3 app.py"]
 
 [workflows]
-runButton = "Python"
+runButton = "Flask"
 
 [[workflows.workflow]]
 name = "Python"
+author = 13553234
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 app.py"
+
+[[workflows.workflow]]
+name = "Flask"
 author = 13553234
 mode = "sequential"
 
