@@ -68,24 +68,6 @@
                 {% endfor %}
             </ol>
         </section>
-
-        <section class="skill">
-            <h3 class="h3 skills-title">My Skills</h3>
-
-            <ul class="skills-list content-card">
-                {% for skill in portfolio.resume.skills %}
-                <li class="skills-item">
-                    <div class="title-wrapper">
-                        <h5 class="h5">{{ skill.name }}</h5>
-                        <data value="{{ skill.percentage }}">{{ skill.percentage }}%</data>
-                    </div>
-                    <div class="skills-progress-bg">
-                        <div class="skills-progress-fill" style="width: {{ skill.percentage }}%;"></div>
-                    </div>
-                </li>
-                {% endfor %}
-            </ul>
-        </section>
     </section>
 
     <section class="testimonials">
@@ -131,13 +113,43 @@
         </section>
     </div>
 
-    <section class="clients">
-        <h3 class="h3 clients-title">Clients</h3>
+    <section class="projects">
+        <h3 class="h3 projects-title">My Projects</h3>
 
-        <ul class="clients-list has-scrollbar">
-            {% for client in portfolio.clients %}
-            <li class="clients-item">
-                <a href="#"><img src="{{ client.logo }}" alt="{{ client.name }}"></a>
+        <ul class="filter-list">
+            <li class="filter-item"><button class="active" data-filter-btn>All</button></li>
+            <li class="filter-item"><button data-filter-btn>Web Development</button></li>
+            <li class="filter-item"><button data-filter-btn>Data Science</button></li>
+        </ul>
+
+        <div class="filter-select-box">
+            <button class="filter-select" data-select>
+                <div class="select-value" data-select-value>Select Category</div>
+                <div class="select-icon">
+                    <ion-icon name="chevron-down"></ion-icon>
+                </div>
+            </button>
+
+            <ul class="select-list">
+                <li class="select-item"><button data-select-item>All</button></li>
+                <li class="select-item"><button data-select-item>Web Development</button></li>
+                <li class="select-item"><button data-select-item>Data Science</button></li>
+            </ul>
+        </div>
+
+        <ul class="project-list">
+            {% for project in portfolio.projects %}
+            <li class="project-item active" data-filter-item data-category="{{ project.category }}">
+                <a href="{{ project.link }}">
+                    <figure class="project-img">
+                        <div class="project-item-icon-box">
+                            <ion-icon name="eye-outline"></ion-icon>
+                        </div>
+                        <img src="{{ project.image }}" alt="{{ project.title }}" loading="lazy">
+                    </figure>
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <p class="project-category">{{ project.category | capitalize }}</p>
+                </a>
             </li>
             {% endfor %}
         </ul>
