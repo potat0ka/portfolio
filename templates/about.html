@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}Bigendra's Portfolio - About{% endblock %}
+
+{% block content %}
+<article class="about active" data-page="about">
+    <header>
+        <h2 class="h2 article-title">About Me</h2>
+    </header>
+
+    <section class="about-text">
+        {% for paragraph in portfolio.about %}
+        <p>{{ paragraph }}</p>
+        {% endfor %}
+    </section>
+
+    <section class="service">
+        <h3 class="h3 service-title">What I'm Doing</h3>
+
+        <ul class="service-list">
+            {% for service in portfolio.services %}
+            <li class="service-item">
+                <div class="service-icon-box">
+                    <img src="{{ service.icon }}" alt="{{ service.title }}" width="40">
+                </div>
+                <div class="service-content-box">
+                    <h4 class="h4 service-item-title">{{ service.title }}</h4>
+                    <p class="service-item-text">{{ service.description }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="resume">
+        <h3 class="h3 resume-title">Resume</h3>
+
+        <section class="timeline">
+            <div class="title-wrapper">
+                <div class="icon-box"><ion-icon name="book-outline"></ion-icon></div>
+                <h3 class="h3">Education</h3>
+            </div>
+
+            <ol class="timeline-list">
+                {% for edu in portfolio.resume.education %}
+                <li class="timeline-item">
+                    <h4 class="h4 timeline-item-title">{{ edu.institution }}</h4>
+                    <span>{{ edu.period }}</span>
+                    <p class="timeline-text">{{ edu.description }}</p>
+                </li>
+                {% endfor %}
+            </ol>
+        </section>
+
+        <section class="timeline">
+            <div class="title-wrapper">
+                <div class="icon-box"><ion-icon name="book-outline"></ion-icon></div>
+                <h3 class="h3">Experience</h3>
+            </div>
+
+            <ol class="timeline-list">
+                {% for exp in portfolio.resume.experience %}
+                <li class="timeline-item">
+                    <h4 class="h4 timeline-item-title">{{ exp.role }}</h4>
+                    <span>{{ exp.period }}</span>
+                    <p class="timeline-text">{{ exp.description }}</p>
+                </li>
+                {% endfor %}
+            </ol>
+        </section>
+
+        <section class="skill">
+            <h3 class="h3 skills-title">My Skills</h3>
+
+            <ul class="skills-list content-card">
+                {% for skill in portfolio.resume.skills %}
+                <li class="skills-item">
+                    <div class="title-wrapper">
+                        <h5 class="h5">{{ skill.name }}</h5>
+                        <data value="{{ skill.percentage }}">{{ skill.percentage }}%</data>
+                    </div>
+                    <div class="skills-progress-bg">
+                        <div class="skills-progress-fill" style="width: {{ skill.percentage }}%;"></div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </section>
+
+    <section class="testimonials">
+        <h3 class="h3 testimonials-title">Testimonials</h3>
+
+        <ul class="testimonials-list has-scrollbar">
+            {% for testimonial in portfolio.testimonials %}
+            <li class="testimonials-item">
+                <div class="content-card" data-testimonials-item>
+                    <figure class="testimonials-avatar-box">
+                        <img src="{{ testimonial.avatar }}" alt="{{ testimonial.title }}" data-testimonials-avatar width="60">
+                    </figure>
+                    <h4 class="h4 testimonials-item-title" data-testimonials-title>{{ testimonial.title }}</h4>
+                    <div class="testimonials-text" data-testimonials-text>
+                        <p>{{ testimonial.text }}</p>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <div class="modal-container" data-modal-container>
+        <div class="overlay" data-overlay></div>
+
+        <section class="testimonials-modal">
+            <button class="modal-close-btn" data-modal-close-btn><ion-icon name="close-outline"></ion-icon></button>
+
+            <div class="modal-img-wrapper">
+                <figure class="modal-avatar-box">
+                    <img src="{{ portfolio.testimonials[0].avatar }}" alt="{{ portfolio.testimonials[0].title }}" width="80" data-modal-img>
+                </figure>
+                <img src="https://i.postimg.cc/mZ00RwX7/icon-quote.png" alt="quote icon">
+            </div>
+
+            <div class="modal-content">
+                <h4 class="h3 modal-title" data-modal-title>{{ portfolio.testimonials[0].title }}</h4>
+                <time datetime="{{ portfolio.testimonials[0].date }}">{{ portfolio.testimonials[0].date }}</time>
+                <div class="modal-text" data-modal-text>
+                    <p>{{ portfolio.testimonials[0].text }}</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="clients">
+        <h3 class="h3 clients-title">Clients</h3>
+
+        <ul class="clients-list has-scrollbar">
+            {% for client in portfolio.clients %}
+            <li class="clients-item">
+                <a href="#"><img src="{{ client.logo }}" alt="{{ client.name }}"></a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+</article>
+{% endblock %}

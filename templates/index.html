@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Bigendra's Portfolio - Home{% endblock %}
+
+{% block content %}
+<article class="home active" data-page="home">
+    <header>
+        <h2 class="h2 article-title">Home</h2>
+    </header>
+
+    <section class="projects">
+        <h3 class="h3 projects-title">Featured Projects</h3>
+
+        <ul class="filter-list">
+            <li class="filter-item"><button class="active" data-filter-btn>All</button></li>
+            <li class="filter-item"><button data-filter-btn>Web Development</button></li>
+            <li class="filter-item"><button data-filter-btn>Data Science</button></li>
+        </ul>
+
+        <div class="filter-select-box">
+            <button class="filter-select" data-select>
+                <div class="select-value" data-select-value>Select Category</div>
+                <div class="select-icon">
+                    <ion-icon name="chevron-down"></ion-icon>
+                </div>
+            </button>
+
+            <ul class="select-list">
+                <li class="select-item"><button data-select-item>All</button></li>
+                <li class="select-item"><button data-select-item>Web Development</button></li>
+                <li class="select-item"><button data-select-item>Data Science</button></li>
+            </ul>
+        </div>
+
+        <ul class="project-list">
+            {% for project in portfolio.projects %}
+            <li class="project-item active" data-filter-item data-category="{{ project.category }}">
+                <a href="{{ project.link }}">
+                    <figure class="project-img">
+                        <div class="project-item-icon-box">
+                            <ion-icon name="eye-outline"></ion-icon>
+                        </div>
+                        <img src="{{ project.image }}" alt="{{ project.title }}" loading="lazy">
+                    </figure>
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <p class="project-category">{{ project.category | capitalize }}</p>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="blog-posts">
+        <h3 class="h3 blog-title">Recent Blog Posts</h3>
+
+        <ul class="blog-posts-list">
+            {% for post in portfolio.blog_posts %}
+            <li class="blog-post-item">
+                <a href="#">
+                    <figure class="blog-banner-box">
+                        <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+                    </figure>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <p class="blog-category">{{ post.category }}</p>
+                            <span class="dot"></span>
+                            <time datetime="{{ post.date }}">{{ post.date }}</time>
+                        </div>
+                        <h3 class="h3 blog-item-title">{{ post.title }}</h3>
+                        <p class="blog-text">{{ post.text }}</p>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+</article>
+{% endblock %}
