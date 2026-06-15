@@ -1,0 +1,5 @@
+# Robots.txt for Bigendra Shrestha Portfolio (potatoka)
+User-agent: *
+Allow: /
+
+Sitemap: https://yourdomain.com/sitemap.xml

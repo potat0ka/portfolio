@@ -1,0 +1,28 @@
+{
+  "buildCommand": "npm run build && python scripts/vercel_build.py",
+  "outputDirectory": "dist",
+  "installCommand": "npm install && pip install -r requirements.txt --break-system-packages",
+
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
+    { "source": "/admin-panel/(.*)", "destination": "/api/index.py" },
+    { "source": "/admin/(.*)", "destination": "/api/index.py" },
+    { "source": "/static/(.*)", "destination": "/api/index.py" },
+    { "source": "/__ping", "destination": "/api/index.py" },
+    { "source": "/__healthz", "destination": "/api/index.py" },
+    { "source": "/__readyz", "destination": "/api/index.py" },
+    { "source": "/health", "destination": "/api/index.py" },
+    { "source": "/health/", "destination": "/api/index.py" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type,Authorization,X-CSRFToken" }
+      ]
+    }
+  ]
+}

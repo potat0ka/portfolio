@@ -1,0 +1,52 @@
+<div class="module" style="padding: 15px; margin-bottom: 20px; background-color: #f8f8f8; border: 1px solid #ccc;">
+    <h2>Portfolio Dashboard Summary</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 10px;">
+        <div style="flex: 1; min-width: 220px; padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: 4px;">
+            <h3>Testimonials</h3>
+            <ul style="list-style-type: none; padding: 0; margin: 10px 0 0 0;">
+                <li><strong>Total:</strong> {{ total_testimonials }}</li>
+                <li><strong>Pending:</strong> <a href="{{ pending_testimonials_url }}">{{ pending_testimonials }}</a></li>
+                <li><strong>Approved:</strong> <span style="color: green;">{{ approved_testimonials }}</span></li>
+                <li><strong>Rejected:</strong> <span style="color: red;">{{ rejected_testimonials }}</span></li>
+            </ul>
+        </div>
+
+        <div style="flex: 1; min-width: 220px; padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+            <div>
+                <h3>Active Profile Photo</h3>
+                {% if profile_image_url %}
+                    <a href="{{ profile_image_url }}" target="_blank" rel="noopener noreferrer">View File</a>
+                {% else %}
+                    <span style="color: #999;">No profile photo uploaded.</span>
+                {% endif %}
+            </div>
+            {% if profile_image_url %}
+            <div>
+                <img src="{{ profile_image_url }}" alt="Profile preview" style="max-height: 80px; border-radius: 5px; border: 1px solid #ccc;" />
+            </div>
+            {% endif %}
+        </div>
+
+        <div style="flex: 1; min-width: 220px; padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: 4px;">
+            <h3>Active CV</h3>
+            {% if cv_url %}
+                <p>
+                    Last updated:
+                    {% if cv_updated_at %}
+                        <strong>{{ cv_updated_at|date:"M j, Y H:i" }}</strong>
+                    {% else %}
+                        <strong>Unknown</strong>
+                    {% endif %}
+                </p>
+                <a href="{{ cv_url }}" target="_blank" rel="noopener noreferrer">View PDF</a>
+            {% else %}
+                <span style="color: #999;">No CV uploaded.</span>
+            {% endif %}
+        </div>
+
+        <div style="flex: 1; min-width: 220px; padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: 4px;">
+            <h3>Certifications</h3>
+            <p style="margin: 10px 0 0 0;"><strong>{{ certification_count }}</strong> certificate(s) published to LEARN tab.</p>
+        </div>
+    </div>
+</div>

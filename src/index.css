@@ -1,0 +1,360 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-decor: "Cinzel Decorative", serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-dota-bg: #101114;
+  --color-dota-panel: #1c1e22;
+  --color-dota-panel-light: #24272c;
+  --color-dota-panel-border: #31353c;
+  --color-dota-success: #48823a;
+  --color-dota-success-light: #5ca14c;
+  --color-dota-danger: #a32c2c;
+  --color-dota-danger-light: #c23b3b;
+  --color-dota-gold: #c3a152;
+  --color-dota-gold-dark: #8c6f32;
+  --color-dota-blue: #2c5ba3;
+  --color-dota-blue-light: #4c85e0;
+}
+
+/* Base style resets and customizations */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-dota-bg);
+  color: #e5e7eb;
+}
+
+/* Custom Scrollbar mirroring Panorama client */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111215;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #31353c;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dota-gold-dark);
+}
+
+/* Dota 2 Panorama-style gradient & glow classes */
+.dota-panel-glow {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.03);
+}
+
+.dota-topnav {
+  /* Dota-style top navigation strip */
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.35) 100%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+  min-width: max-content;
+  overflow: hidden;
+}
+
+.dota-topnav-item {
+  position: relative;
+  height: 40px;
+  min-width: 76px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+  font-size: 10px;
+  color: rgba(229, 231, 235, 0.65);
+  background: transparent;
+  /* No border-right: skewed items don't need straight dividers */
+  transform: skewX(-14deg);
+  transition: color 160ms ease, background 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+  overflow: hidden;
+  /* Overlap items slightly so skewed edges cover gaps */
+  margin-left: -1px;
+}
+
+/* Give first item extra left padding to compensate for skew clipping at left edge */
+.dota-topnav-item:first-child {
+  padding-left: 22px;
+}
+
+/* Give last item extra right padding to compensate for skew at right edge */
+.dota-topnav-item:last-child {
+  padding-right: 22px;
+}
+
+.dota-topnav-item > span {
+  transform: skewX(14deg);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+}
+
+.dota-topnav-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.11) 0%, rgba(255,255,255,0.04) 100%);
+  transition: opacity 160ms ease;
+  z-index: 0;
+}
+
+.dota-topnav-item:hover {
+  color: rgba(255, 255, 255, 0.96);
+  filter: brightness(1.08);
+}
+
+.dota-topnav-item:focus-visible {
+  outline: 2px solid rgba(76,133,224,0.75);
+  outline-offset: -2px;
+  z-index: 2;
+}
+
+.dota-topnav-item:hover::before {
+  opacity: 1;
+}
+
+.dota-topnav-item.is-active {
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(76,133,224,0.22) 0%, rgba(44,91,163,0.12) 100%);
+  text-shadow: 0 0 10px rgba(76,133,224,0.6);
+}
+
+/* Active top accent line — sits flush at the top inside the item */
+.dota-topnav-item.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7aa7ff, #3d76f4, #6fd0ff);
+  box-shadow: 0 0 12px rgba(76,133,224,0.9);
+  z-index: 2;
+}
+
+.dota-gold-glow-hover:hover {
+  box-shadow: 0 0 15px rgba(195, 161, 82, 0.25);
+  border-color: var(--color-dota-gold);
+}
+
+.dota-success-glow {
+  box-shadow: 0 0 20px rgba(72, 130, 58, 0.4);
+}
+
+.dota-danger-glow {
+  box-shadow: 0 0 20px rgba(163, 44, 44, 0.4);
+}
+
+.skill-icon-shell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  will-change: transform;
+}
+
+.skill-icon-panel {
+  width: 64px;
+  height: 64px;
+}
+
+.skill-icon-activate {
+  animation: skill-icon-activate 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes skill-icon-activate {
+  0% {
+    transform: scale(1) rotate(0deg);
+    box-shadow: 0 0 0 rgba(195, 161, 82, 0);
+  }
+  30% {
+    transform: scale(1.18) rotate(-8deg);
+    box-shadow: 0 0 26px rgba(195, 161, 82, 0.32);
+  }
+  55% {
+    transform: scale(0.96) rotate(7deg);
+    box-shadow: 0 0 18px rgba(76, 133, 224, 0.2);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    box-shadow: 0 0 0 rgba(195, 161, 82, 0);
+  }
+}
+
+.metallic-shine {
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.02) 100%);
+}
+
+/* 3D Card Flip Custom Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Certificate flip card — Dota aura aesthetic */
+.cert-card-scene {
+  cursor: pointer;
+}
+
+.cert-card-inner {
+  will-change: transform;
+}
+
+.cert-aura-shell {
+  box-shadow:
+    0 0 20px rgba(195, 161, 82, 0.08),
+    inset 0 0 30px rgba(195, 161, 82, 0.04);
+}
+
+.cert-aura-pulse {
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    ellipse at 50% 80%,
+    rgba(72, 130, 58, 0.18) 0%,
+    rgba(195, 161, 82, 0.12) 35%,
+    transparent 70%
+  );
+  animation: cert-aura-breathe 4s ease-in-out infinite;
+}
+
+.cert-aura-ring {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(195, 161, 82, 0.12);
+  border-radius: 2px;
+  animation: cert-aura-ring 6s ease-in-out infinite;
+}
+
+.cert-aura-dot {
+  animation: cert-aura-dot 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(195, 161, 82, 0.6);
+}
+
+@keyframes cert-aura-breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes cert-aura-ring {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.85; box-shadow: 0 0 12px rgba(195, 161, 82, 0.15); }
+}
+
+@keyframes cert-aura-dot {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.cert-lightbox-backdrop {
+  background: rgba(0, 0, 0, 0.93);
+  animation: cert-lightbox-in 0.25s ease-out;
+}
+
+@keyframes cert-lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cert-pdf-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #31353c #0a0b0d;
+}
+
+/* Custom animated wiggle for the funny pixelated potato companion */
+@keyframes custom-wiggle {
+  0%, 100% { transform: rotate(-6deg) scale(0.95); }
+  50% { transform: rotate(8deg) scale(1.05); }
+}
+.animate-custom-wiggle {
+  animation: custom-wiggle 0.6s ease-in-out infinite;
+}
+
+/* Hardcore print styles for flawless CV printout */
+@media print {
+  /* Hide the entire application UI and only show the specified CV print container */
+  html, body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 11pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Target everything to hide by default */
+  #root > *, .no-print, header, footer, main, .fixed, .potato-companion, button {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Make print area visible and position it absolutely at the top left */
+  #cv-print-area, #cv-print-area * {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  #cv-print-area {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Ensure text is dark and high contrast, remove animations or interactive gradients */
+  h1, h2, h3, h4, p, span, li {
+    color: #000000 !important;
+    text-shadow: none !important;
+  }
+  
+  a {
+    color: #111111 !important;
+    text-decoration: underline !important;
+  }
+
+  /* Prevent page breaks inside sections */
+  .print-avoid-break {
+    page-break-inside: avoid;
+  }
+}

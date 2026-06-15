@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Bigendra Shrestha | Portfolio{% endblock %}</title>
+    <meta name="description" content="Django version of Bigendra Shrestha's portfolio, migrated incrementally from the original React/Vite app.">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="{% url 'home' %}" class="brand">
+                <div class="brand-mark"><span>B</span></div>
+                <div>
+                    <div class="brand-title">Bigendra Shrestha</div>
+                    <div class="brand-subtitle">potatoka.py · Django portfolio migration</div>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}is-active{% endif %}">Home</a>
+                <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}is-active{% endif %}">About</a>
+                <a href="{% url 'projects' %}" class="{% if request.resolver_match.url_name == 'projects' %}is-active{% endif %}">Projects</a>
+                <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}is-active{% endif %}">Contact</a>
+                <a href="{% url 'resume' %}" class="{% if request.resolver_match.url_name == 'resume' %}is-active{% endif %}">Resume</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="site-main">
+        <div class="container">
+            {% if messages %}
+                <div class="message-list">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags|default:'success' }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div>Incremental Django migration from the original TS/TSX portfolio.</div>
+            <div>{{ hero_profile.codename }} · {{ hero_profile.guild }}</div>
+        </div>
+    </footer>
+</body>
+</html>

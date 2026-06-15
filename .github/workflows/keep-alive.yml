@@ -1,0 +1,21 @@
+name: Supabase Keep-Alive
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  ping-readyz:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping /__readyz
+        run: |
+          echo "Pinging https://www.bigendra.com.np/__readyz"
+          response=$(curl -fsS -o /dev/null -w "%{http_code}" https://www.bigendra.com.np/__readyz)
+          echo "Response status: $response"
+          if [ "$response" != "200" ]; then
+            echo "Keep-alive ping failed with status $response"
+            exit 1
+          fi
